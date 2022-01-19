@@ -8,7 +8,10 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-public class HibernateSimpleSessionFactory implements SimpleSessionFactory {
+/**
+ * This class wraps a Singleton {@link SessionFactory} which is used to retrieve Sessions through {@link #getSession()}
+ */
+public class HibernateSimpleSessionFactory{
 
     private static SessionFactory sessionFactory;
 
@@ -29,7 +32,9 @@ public class HibernateSimpleSessionFactory implements SimpleSessionFactory {
         }
     }
 
-    @Override
+    /**
+     * Get a {@link Session} to manage db operations.
+     */
     public Session getSession() {
         return sessionFactory.openSession();
     }

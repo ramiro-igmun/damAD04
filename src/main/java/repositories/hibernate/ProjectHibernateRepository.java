@@ -1,8 +1,8 @@
-package repositories;
+package repositories.hibernate;
 
 import entities.Project;
 
-public class ProjectRepository implements Repository<Project> {
+public class ProjectHibernateRepository implements HibernateRepository<Project> {
     @Override
     public Class<Project> getClazz() {
         return Project.class;

@@ -1,8 +1,8 @@
-package repositories;
+package repositories.hibernate;
 
 import entities.Course;
 
-public class CourseRepository implements Repository<Course>{
+public class CourseHibernateRepository implements HibernateRepository<Course> {
     @Override
     public Class<Course> getClazz() {
         return Course.class;

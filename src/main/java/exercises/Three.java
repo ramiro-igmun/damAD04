@@ -2,25 +2,17 @@ package exercises;
 
 import entities.Instructor;
 import entities.Project;
-import repositories.InstructorRepository;
-import repositories.ProjectRepository;
+import exercises.logic.ThreeLogic;
+import repositories.hibernate.InstructorHibernateRepository;
+import repositories.hibernate.ProjectHibernateRepository;
 
 import java.util.List;
 
 public class Three {
 
     public static void main(String[] args) {
-        ProjectRepository projectRepository = new ProjectRepository();
-        InstructorRepository instructorRepository = new InstructorRepository();
-
-        Project project = new Project();
-        project.setBudget(100000D);
-        project.setField("Computer Science");
-        project.setName("ORM Development");
-
-        List<Instructor> instructors = instructorRepository.getAllHQL();
-        instructors.forEach(project::addInstructor);
-
-        projectRepository.save(project);
+        ProjectHibernateRepository projectRepository = new ProjectHibernateRepository();
+        InstructorHibernateRepository instructorRepository = new InstructorHibernateRepository();
+        ThreeLogic.run(instructorRepository, projectRepository);
     }
 }

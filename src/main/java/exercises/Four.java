@@ -1,10 +1,14 @@
 package exercises;
 
-import repositories.InstructorRepository;
+import entities.Instructor;
+import repositories.hibernate.InstructorHibernateRepository;
+
+import java.util.List;
 
 public class Four {
     public static void main(String[] args) {
-        InstructorRepository instructorRepository = new InstructorRepository();
-        instructorRepository.deleteById(18);
+        InstructorHibernateRepository instructorRepository = new InstructorHibernateRepository();
+        List<Instructor> instructors = instructorRepository.getAll();
+        instructors.forEach(instructor -> instructorRepository.deleteById(instructor.getId()));
     }
 }

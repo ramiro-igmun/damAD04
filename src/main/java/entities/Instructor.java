@@ -15,15 +15,17 @@ public class Instructor extends Person {
     @Column(name = "id")
     private int id;
 
-    @OneToMany(mappedBy = "instructor")
+    @OneToMany(mappedBy = "instructor", cascade = { CascadeType.PERSIST , CascadeType.MERGE})
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     Set<Course> courses = new HashSet<>();
 
     @OneToOne(mappedBy = "instructor", cascade = CascadeType.ALL)
     private InstructorDetail instructorDetail;
 
-    @ManyToMany(mappedBy = "instructors", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
-    private Set<Project> projects = new HashSet<>();
+    @ManyToMany(mappedBy = "instructors",
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST},
+            fetch = FetchType.EAGER)
+    private final Set<Project> projects = new HashSet<>();
 
     public Instructor(String firstName, String lastName, String email, Address address, int id) {
         super(firstName, lastName, email, address);
@@ -47,6 +49,10 @@ public class Instructor extends Person {
     public void removeProject(Project project) {
         projects.remove(project);
         project.getInstructors().remove(this);
+    }
+
+    public int getId() {
+        return id;
     }
 
     public Set<Project> getProjects() {

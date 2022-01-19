@@ -1,16 +1,19 @@
-package repositories;
+package repositories.hibernate;
 
 import entities.Instructor;
-import entities.Project;
 import org.hibernate.Session;
 
-public class InstructorRepository implements Repository<Instructor>{
+public class InstructorHibernateRepository implements HibernateRepository<Instructor> {
 
     @Override
     public Class<Instructor> getClazz() {
         return Instructor.class;
     }
 
+    /**
+     * Delete the persisted Instructor by id and set its courses' instructor to null
+     * @param id of the entity to delete
+     */
     @Override
     public void deleteById(int id) {
         Session session = sessionFactory.getSession();
@@ -25,10 +28,5 @@ public class InstructorRepository implements Repository<Instructor>{
             e.printStackTrace();
             session.getTransaction().rollback();
         }
-    }
-
-    @Override
-    public void deleteByIdQuery(int id) {
-        Repository.super.deleteByIdQuery(id);
     }
 }

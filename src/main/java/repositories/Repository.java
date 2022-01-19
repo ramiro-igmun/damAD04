@@ -1,72 +1,29 @@
 package repositories;
 
-import Infrastructure.HibernateSimpleSessionFactory;
-import Infrastructure.SimpleSessionFactory;
-import org.hibernate.Session;
-
-import java.util.Collections;
 import java.util.List;
 
 public interface Repository<T> {
-
-    SimpleSessionFactory sessionFactory = new HibernateSimpleSessionFactory();
-
     Class<T> getClazz();
+    /**
+     * Persist the entity in the db
+     * @param entity to persist
+     */
+    void save(T entity);
+    /**
+     * Delete a persisted entity by id
+     * @param id of the entity to delete
+     */
+    void deleteById(int id);
+    /**
+     * Return the persistent instance of the given entity class with the given identifier
+     * @param id of the entity to fetch
+     * @return the instance of the entity
+     */
+    T getById(int id);
 
-    default void save(T entity) {
-        Session session = sessionFactory.getSession();
-        try (session) {
-            session.beginTransaction();
-            session.save(entity);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            session.getTransaction().rollback();
-        }
-    }
-
-    default void deleteById(int id) {
-        Session session = sessionFactory.getSession();
-        try (session) {
-            session.beginTransaction();
-            T entity = session.get(getClazz(), id);
-            session.delete(entity);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            session.getTransaction().rollback();
-        }
-    }
-
-    default void deleteByIdQuery(int id) {
-        Session session = sessionFactory.getSession();
-        try (session) {
-            session.beginTransaction();
-            String query = String.format("DELETE %s WHERE id=:id", getClazz().getName());
-            session.createQuery(query)
-                    .setParameter("id", id)
-                    .executeUpdate();
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            session.getTransaction().rollback();
-        }
-    }
-
-    default T getById(int id) {
-        Session session = sessionFactory.getSession();
-        return session.get(getClazz(), id);
-    }
-
-    default List<T> getAllHQL() {
-        Session session = sessionFactory.getSession();
-        try (session) {
-            String query = String.format("FROM %s", getClazz().getName());
-            return session.createQuery(query, getClazz()).getResultList();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return Collections.emptyList();
-    }
-
+    /**
+     * Fetch all the persisted instances
+     * @return a List with all the instances in db
+     */
+    List<T> getAll();
 }
