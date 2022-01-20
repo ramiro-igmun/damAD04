@@ -7,7 +7,7 @@ import repositories.Repository;
 
 public class OneLogic {
 
-    public static void run(Repository<Course> courseRepository, Repository<Instructor> instructorRepository) {
+    public static void run(Repository<Instructor> instructorRepository) {
         // 1- Create a new course
         Course course = new Course("Acceso a Datos", 5);
 

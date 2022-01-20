@@ -5,7 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /**
- * This class wraps a Singleton {@link EntityManagerFactory} which is used to retrieve entityManager through {@link #getSession()}
+ * This class wraps a Singleton {@link EntityManagerFactory} which is used to retrieve entityManager through {@link #getEntityManager()}
  */
 public class JpaSessionFactory {
 

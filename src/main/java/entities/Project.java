@@ -19,7 +19,7 @@ public class Project {
 
     private Double budget;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinTable(name = "instructor_project", joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "instructor_id"))
     private Set<Instructor> instructors = new HashSet<>();

@@ -1,8 +1,5 @@
 package exercises;
 
-import entities.Address;
-import entities.Instructor;
-import entities.InstructorDetail;
 import exercises.logic.TwoLogic;
 import repositories.hibernate.InstructorHibernateRepository;
 

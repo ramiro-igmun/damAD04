@@ -17,8 +17,7 @@ public interface JpaRepository<T> extends Repository<T> {
         try {
             session.getTransaction().begin();
             session.merge(entity);
-//            session.persist(entity);
-//            session.getTransaction().commit();
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
             session.getTransaction().rollback();
